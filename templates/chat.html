@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>midnight chat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>midnight chat</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul style="color:red;">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form action="/" method="post" style="display: flex; gap: 8px; align-items: center;">
+  <input type="text" name="username" maxlength="15" placeholder="Username" autocomplete="username" required style="width: 100px;">
+  <input type="text" name="msg" maxlength="2500" placeholder="Message" required style="flex:1">
+  <input type="submit" value="Send">
+</form>
+
+  <hr>
+
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+  <h2 style="margin: 0;">recent messages</h2>
+  <form method="get" style="display: inline;">
+    <input type="submit" value="refresh">
+  </form>
+  </div>
+
+  
+
+  <ul>
+    {% for m in messages %}
+      <li><strong>{{ m.username }}:</strong> {{ m.msg }}</li>
+      
+    {% endfor %}
+  </ul>
+</body>
+</html>
