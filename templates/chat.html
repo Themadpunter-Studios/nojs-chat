@@ -20,6 +20,7 @@
 
   <form action="/" method="post" style="display: flex; gap: 8px; align-items: center;">
   <input type="text" name="username" maxlength="15" placeholder="Username" autocomplete="username" required style="width: 100px;">
+  <input type="password" name="password" maxlength="69" placeholder="Password (if needed)" autocomplete="username" style="width: 100px;">
   <input type="text" name="msg" maxlength="2500" placeholder="Message" required style="flex:1">
   <input type="submit" value="Send">
 </form>
@@ -39,7 +40,13 @@
 
   <ul>
     {% for m in messages %}
-      <li><strong>{{ m.username }}:</strong> {{ m.msg }}</li>
+      <li>
+        {% if m.username in registered %}
+        <strong>{{ m.username }}:</strong> {{ m.msg }}
+        {% else %}
+        <strong style="color: #aaa;">{{ m.username }}:</strong> {{ m.msg }}
+        {% endif %}
+      </li>
       
     {% endfor %}
   </ul>
